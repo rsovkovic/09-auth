@@ -7,18 +7,19 @@ import { useAuthStore } from "@/lib/store/authStore";
 
 export default function SignUp() {
   const router = useRouter();
-
   const setUser = useAuthStore((state) => state.setUser);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setError(null);
     try {
+      const formData = new FormData(event.currentTarget);
       const data = Object.fromEntries(formData) as RegisterRequest;
-      const user = await register(data);
+      const userData = await register(data);
 
-      if (user) {
-        setUser(user);
+      if (userData) {
+        setUser(userData);
         router.push("/profile");
       }
     } catch (err) {
@@ -30,7 +31,7 @@ export default function SignUp() {
   return (
     <main className={css.mainContent}>
       <h1 className={css.formTitle}>Sign up</h1>
-      <form action={handleSubmit} className={css.form}>
+      <form onSubmit={handleSubmit} className={css.form}>
         <div className={css.formGroup}>
           <label htmlFor="email">Email</label>
           <input
@@ -38,6 +39,7 @@ export default function SignUp() {
             type="email"
             name="email"
             className={css.input}
+            autoComplete="email"
             required
           />
         </div>
@@ -49,6 +51,7 @@ export default function SignUp() {
             type="password"
             name="password"
             className={css.input}
+            autoComplete="new-password"
             required
           />
         </div>

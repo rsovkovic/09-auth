@@ -38,6 +38,7 @@ export default function SignIn() {
             type="email"
             name="email"
             className={css.input}
+            autoComplete="email"
             required
           />
         </div>
@@ -49,6 +50,7 @@ export default function SignIn() {
             type="password"
             name="password"
             className={css.input}
+            autoComplete="current-password"
             required
           />
         </div>
