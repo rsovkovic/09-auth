@@ -1,5 +1,3 @@
-// import Image from "next/image";
-// import css from "styled-jsx/css";
 import css from "./page.module.css";
 
 export default function Home() {

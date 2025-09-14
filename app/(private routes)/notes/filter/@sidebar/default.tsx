@@ -2,15 +2,6 @@ import Link from "next/link";
 import css from "./SidebarNotes.module.css";
 import { tags } from "@/types/note";
 
-// const tags: (NoteTag | "All")[] = [
-//   "All",
-//   "Todo",
-//   "Work",
-//   "Personal",
-//   "Meeting",
-//   "Shopping",
-// ];
-
 const SidebarNotes = () => {
   return (
     <ul className={css.menuList}>
