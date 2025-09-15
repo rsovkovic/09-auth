@@ -11,10 +11,15 @@ export type RegisterRequest = {
 
 export interface CheckSessionResponse {
   success: boolean;
+  user?: {
+    username: string;
+    email?: string;
+    avatar: string;
+  };
 }
 
 export interface UpdateUserRequest {
-  userName?: string;
+  username?: string;
 }
 
 export interface FetchNotesParams {
@@ -80,12 +85,12 @@ export const login = async (payload: RegisterRequest) => {
   return res.data;
 };
 
-export const checkSession = async () => {
+export const checkSession = async (): Promise<CheckSessionResponse> => {
   const res = await nextServer.get<CheckSessionResponse>("/auth/session");
-  return res.data.success;
+  return res.data;
 };
 
-export const getMe = async () => {
+export const getMe = async (): Promise<User> => {
   const { data } = await nextServer.get<User>("/users/me");
   return data;
 };
@@ -94,9 +99,7 @@ export const logout = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
 };
 
-export const updateMe = async (payload: {
-  username: string;
-}): Promise<User> => {
+export const updateMe = async (payload: UpdateUserRequest): Promise<User> => {
   const res = await nextServer.patch<User>("/users/me", payload);
   return res.data;
 };
